@@ -5,6 +5,7 @@ const formatTask = task => {
   return {
     _id: task._id.toString(),
     summary: task.summary,
+    isCompleted: task.isCompleted,
     createdAt: task.createdAt.toISOString(),
     updatedAt: task.updatedAt.toISOString()
   };
