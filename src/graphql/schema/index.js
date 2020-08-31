@@ -15,6 +15,7 @@ module.exports = graphql.buildSchema(`
     createTask(summary: String!): Task!
     updateTask(id: ID!, taskUpdate: TaskUpdateData!): Task!
     deleteTask(id: ID!): Boolean
+    deleteAllTasks(excludeCompleted: Boolean! = false): Boolean
   }
 
   type Task {

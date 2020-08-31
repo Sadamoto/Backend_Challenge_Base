@@ -60,8 +60,7 @@ const tasks = async ({ excludeCompleted }) => {
     throw error;
   }
 
-  const tasks = rawTasks.map(formatTask);
-  return tasks;
+  return rawTasks.map(formatTask);
 };
 
 const task = async ({ id }) => {
@@ -71,6 +70,7 @@ const task = async ({ id }) => {
 
 const createTask = async ({ summary }) => {
   validateInput(summary);
+
   const task = new Task({ summary });
   const createdTask = await task.save();
 
@@ -105,4 +105,10 @@ const deleteTask = async ({ id }) => {
   return true;
 };
 
-module.exports = { tasks, task, createTask, updateTask, deleteTask };
+const deleteAllTasks = async () => {
+  const tasks = await Task.find();
+  tasks.forEach(async (t) => await Task.findByIdAndRemove(t.id));
+  return true;
+}
+
+module.exports = { tasks, task, createTask, updateTask, deleteTask, deleteAllTasks };
