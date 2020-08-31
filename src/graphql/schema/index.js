@@ -8,7 +8,7 @@ module.exports = graphql.buildSchema(`
 
   type RootQuery {
     task(id: ID!): Task!
-    tasks(excludeCompleted: Boolean!): [Task!]!
+    tasks(excludeCompleted: Boolean! = false): [Task!]!
   }
 
   type RootMutation {
