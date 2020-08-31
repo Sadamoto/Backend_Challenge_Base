@@ -17,14 +17,14 @@ const validateInput = (summary, isCompleted = null) => {
   const errors = [];
   if (isEmpty(summary) || !isLength(summary, { min: MIN_LENGHT, max: MAX_LENGTH })) {
     errors.push({
-      message: `Summary does not fulfull the length requirements (${MIN_LENGHT}-${MAX_LENGTH} characters): '${summary}'`
+      message: `Summary does not fulfill the length requirements (${MIN_LENGHT}-${MAX_LENGTH} characters): '${summary}'`
     });
   }
   if (isCompleted !== null && !isBoolean(isCompleted.toString())) {
     errors.push({ message: `isCompleted has to be a boolean, instead got ${isCompleted}` });
   }
   if (errors.length > 0) {
-    const error = new Error('The input failed validation.');
+    const error = new Error('The input validation failed.');
     error.code = 422;
     error.data = errors;
     throw error;
