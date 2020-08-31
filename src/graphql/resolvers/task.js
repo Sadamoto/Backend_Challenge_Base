@@ -82,13 +82,16 @@ const createTask = async ({ summary }) => {
 const updateTask = async ({ id, taskUpdate }) => {
   const summary = taskUpdate.summary;
   const isCompleted = taskUpdate.isCompleted;
+
   validateInput(summary, isCompleted);
 
   const task = await getTask(id);
 
   task.summary = summary;
   task.isCompleted = isCompleted;
-  const updateTask = task.save();
+
+  const updateTask = await task.save();
+
   return formatTask(updateTask);
 }
 
