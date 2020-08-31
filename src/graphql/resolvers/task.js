@@ -8,7 +8,7 @@ const formatTask = task => {
     createdAt: task.createdAt.toISOString(),
     updatedAt: task.updatedAt.toISOString()
   };
-};
+}
 
 const validateInput = (summary, isCompleted = null) => {
   const MIN_LENGHT = 10;
@@ -29,7 +29,7 @@ const validateInput = (summary, isCompleted = null) => {
     error.data = errors;
     throw error;
   }
-};
+}
 
 const getTask = async id => {
   const task = await Task.findById(id);
@@ -40,7 +40,7 @@ const getTask = async id => {
     throw error;
   }
   return task;
-};
+}
 
 const tasks = async ({ excludeCompleted }) => {
   let rawTasks;
@@ -58,12 +58,12 @@ const tasks = async ({ excludeCompleted }) => {
 
   const tasks = rawTasks.map(formatTask);
   return tasks;
-},
+}
 
 const task = async ({ id }) => {
   const task = await getTask(id);
   return formatTask(task);
-},
+}
 
 const createTask = async ({ summary }) => {
   validateInput(summary);
@@ -77,7 +77,7 @@ const createTask = async ({ summary }) => {
   }
 
   return formatTask(createdTask);
-},
+}
 
 const updateTask = async ({ id, taskUpdate }) => {
   const summary = taskUpdate.summary;
@@ -90,7 +90,7 @@ const updateTask = async ({ id, taskUpdate }) => {
   task.isCompleted = isCompleted;
   const updateTask = task.save();
   return formatTask(updateTask);
-},
+}
 
 const deleteTask = async ({ id }) => {
   await getTask(id);
