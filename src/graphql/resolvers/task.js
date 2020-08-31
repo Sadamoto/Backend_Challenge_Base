@@ -4,7 +4,7 @@ const Task = require('../../models/task');
 const formatTask = task => {
   return {
     _id: task._id.toString(),
-    summary: task.summary.ToString(),
+    summary: task.summary,
     createdAt: task.createdAt.toISOString(),
     updatedAt: task.updatedAt.toISOString()
   };
