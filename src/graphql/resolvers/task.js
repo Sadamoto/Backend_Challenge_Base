@@ -11,10 +11,13 @@ const formatTask = task => {
 };
 
 const validateInput = (summary, isCompleted = null) => {
+  const MIN_LENGHT = 10;
+  const MAX_LENGTH = 150;
+
   const errors = [];
-  if (isEmpty(summary) || !isLength(summary, { min: 10, max: 150 })) {
+  if (isEmpty(summary) || !isLength(summary, { min: MIN_LENGHT, max: MAX_LENGTH })) {
     errors.push({
-      message: `Summary does not fulfull the length requirements (10-150 characters): ${summary}`
+      message: `Summary does not fulfull the length requirements (${MIN_LENGHT}-${MAX_LENGTH} characters): '${summary}'`
     });
   }
   if (isCompleted !== null && !isBoolean(isCompleted.toString())) {
@@ -38,7 +41,6 @@ const getTask = async id => {
   }
   return task;
 };
-
 
 const tasks = async ({ excludeCompleted }) => {
   let rawTasks;
