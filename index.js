@@ -42,7 +42,7 @@ app.use(
 );
 
 // Error Handling
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   logger.error(err);
   const status = err.statusCode || 500;
   const { message, data } = err;
