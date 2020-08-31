@@ -1,6 +1,6 @@
-const graphql = require('graphql');
+import { buildSchema } from 'graphql';
 
-module.exports = graphql.buildSchema(`
+export default buildSchema(`
   schema {
     query: RootQuery
     mutation: RootMutation

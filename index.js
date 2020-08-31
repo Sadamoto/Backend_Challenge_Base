@@ -1,20 +1,20 @@
 require('dotenv').config();
 
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const express = require('express');
-const graphQl = require('express-graphql');
+import { json } from 'body-parser';
+import { connection } from 'mongoose';
+import express from 'express';
+import graphQl from 'express-graphql';
 const app = express();
 
-const logger = require('./src/util/logger');
-const connectDb = require('./src/util/connectDb');
+import { error, fatal, info } from './src/util/logger';
+import connectDb from './src/util/connectDb';
 
 // GraphQL Implementation
-const gqlSchema = require('./src/graphql/schema');
-const gqlResolver = require('./src/graphql/resolvers');
+import gqlSchema from './src/graphql/schema';
+import gqlResolver from './src/graphql/resolvers';
 
 // General Middleware
-app.use(bodyParser.json());
+app.use(json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', process.env.CORS_ALLOWED_ORIGINS);
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
@@ -43,14 +43,14 @@ app.use(
 
 // Error Handling
 app.use((err, req, res, next) => {
-  logger.error(err);
+  error(err);
   const status = err.statusCode || 500;
   const { message, data } = err;
   res.status(status).json({ message, data });
 });
 
 process.on('uncaughtException', err => {
-  logger.fatal(err);
+  fatal(err);
 });
 
 process.on('unhandledRejection', reason => {
@@ -60,13 +60,13 @@ process.on('unhandledRejection', reason => {
 // Server Setup
 const PORT = process.env.PORT || 8080;
 
-mongoose.connection.once('open', () => {
+connection.once('open', () => {
   app.listen(PORT, () => {
-    logger.info(`Server listening on port ${PORT}`);
+    info(`Server listening on port ${PORT}`);
   });
 });
 
 connectDb(10000).catch(err => {
-  logger.fatal(err);
+  fatal(err);
   process.exitCode = 1;
 });
