@@ -16,7 +16,10 @@ const validateInput = (summary, isCompleted = null) => {
   const MAX_LENGTH = 150;
 
   const errors = [];
-  if (validator.isEmpty(summary) || !validator.isLength(summary, { min: MIN_LENGHT, max: MAX_LENGTH })) {
+  if (
+    validator.isEmpty(summary) ||
+    !validator.isLength(summary, { min: MIN_LENGHT, max: MAX_LENGTH })
+  ) {
     errors.push({
       message: `Summary does not fulfill the length requirements (${MIN_LENGHT}-${MAX_LENGTH} characters): '${summary}'`
     });
