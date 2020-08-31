@@ -84,7 +84,7 @@ module.exports = {
     const task = await getTask(id);
 
     task.summary = summary;
-    task.isCompleted = task.isCompleted;
+    task.isCompleted = isCompleted;
     const updateTask = task.save();
     return formatTask(updateTask);
   },
