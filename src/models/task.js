@@ -7,7 +7,8 @@ const taskSchema = new Schema(
     summary: {
       type: String,
       required: true,
-      minlength: 10
+      minlength: 10,
+      maxlength: 150
     },
     isCompleted: {
       type: Boolean,
