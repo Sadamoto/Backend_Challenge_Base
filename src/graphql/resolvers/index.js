@@ -1,5 +1,5 @@
-import task from './task';
+const task = require('./task');
 
-export default {
+module.exports = {
   ...task
 };

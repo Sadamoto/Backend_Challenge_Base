@@ -1,4 +1,4 @@
-import { connect } from 'mongoose';
+const mongoose = require('mongoose');
 
 let timeOfLastTry = 0;
 const RETRY_INTERVAL = 1000;
@@ -10,10 +10,11 @@ const connectDb = async tryForMs => {
     timeOfLastTry = Date.now() + 5000;
   }
 
-  connect(process.env.DB_MONGO_CONNECTION, {
-    useNewUrlParser: true,
-    dbName: process.env.DB_MONGO_DATABASE
-  })
+  mongoose
+    .connect(process.env.DB_MONGO_CONNECTION, {
+      useNewUrlParser: true,
+      dbName: process.env.DB_MONGO_DATABASE
+    })
     .catch(err => {
       if (Date.now() < timeOfLastTry) {
         setTimeout(connectDb, RETRY_INTERVAL);
@@ -24,4 +25,4 @@ const connectDb = async tryForMs => {
     });
 };
 
-export default connectDb;
+module.exports = connectDb;

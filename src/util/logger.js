@@ -1,4 +1,4 @@
-import pino from 'pino';
+const pino = require('pino');
 
 let logger;
 if (process.env.NODE_ENV === 'development') {
@@ -9,4 +9,4 @@ if (process.env.NODE_ENV === 'development') {
   logger = pino();
 }
 
-export default logger;
+module.exports = logger;

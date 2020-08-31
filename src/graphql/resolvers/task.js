@@ -1,5 +1,5 @@
-import { isEmpty, isLength, isBoolean } from 'validator';
-import Task from '../../models/task';
+const validator = require('validator');
+const Task = require('../../models/task');
 
 const formatTask = task => {
   return {
@@ -15,12 +15,12 @@ const validateInput = (summary, isCompleted = null) => {
   const MAX_LENGTH = 150;
 
   const errors = [];
-  if (isEmpty(summary) || !isLength(summary, { min: MIN_LENGHT, max: MAX_LENGTH })) {
+  if (validator.isEmpty(summary) || !validator.isLength(summary, { min: MIN_LENGHT, max: MAX_LENGTH })) {
     errors.push({
       message: `Summary does not fulfill the length requirements (${MIN_LENGHT}-${MAX_LENGTH} characters): '${summary}'`
     });
   }
-  if (isCompleted !== null && !isBoolean(isCompleted.toString())) {
+  if (isCompleted !== null && !validator.isBoolean(isCompleted.toString())) {
     errors.push({ message: `isCompleted has to be a boolean, instead got ${isCompleted}` });
   }
   if (errors.length > 0) {
@@ -98,4 +98,4 @@ const deleteTask = async ({ id }) => {
   return true;
 }
 
-export default { tasks, task, createTask, updateTask, deleteTask };
+module.exports = { tasks, task, createTask, updateTask, deleteTask };
