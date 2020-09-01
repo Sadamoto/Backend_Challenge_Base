@@ -49,7 +49,7 @@ const getTask = async id => {
 const tasks = async ({ excludeCompleted }) => {
   let rawTasks;
   if (excludeCompleted) {
-    rawTasks = await Task.find({ isCompleted: true }).sort({ createdAt: -1 });
+    rawTasks = await Task.find({ isCompleted: false }).sort({ createdAt: -1 });
   } else {
     rawTasks = await Task.find().sort({ createdAt: -1 });
   }
